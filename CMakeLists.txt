@@ -3,4 +3,4 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train "92. Reverse Linked List II.cpp")
+add_executable(leetcode_train  "401. Binary Watch.cpp")

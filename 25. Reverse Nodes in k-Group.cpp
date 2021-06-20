@@ -13,6 +13,7 @@ struct ListNode {
     ListNode() : val(0), next(nullptr) {}
 };
 
+
 // reverse linked list through iteration
 ListNode *reverse(ListNode *head, ListNode *last) {
     ListNode *pre, *cur, *nxt;
@@ -25,15 +26,39 @@ ListNode *reverse(ListNode *head, ListNode *last) {
     }
     return pre;
 }
+
+
+
+
 //reverse  linked list through recursion
 ListNode *reverse_cursion(ListNode *head, ListNode *last) {
-    if(head==last or head->next==last)
+    if (head == last or head->next == last)
         return head;
-    ListNode *newhead = reverse_cursion(head->next,last);
-    head->next->next=head;
-    head->next= nullptr;
+    ListNode *newhead = reverse_cursion(head->next, last);
+    head->next->next = head;
+    head->next = nullptr;
     return newhead;
 }
+
+ListNode *reverseKGroup(ListNode *head,int k )
+{
+    ListNode *a,*b;
+    a = head,b=head;
+    for( int i=0;i<k ;i++)
+    {
+        if(b== nullptr) return a;
+        b = b->next;
+    }
+
+    ListNode *newHead = reverse_cursion(a,b);
+    a->next = reverseKGroup(b,k);
+    return newHead;
+
+}
+
+
+
+
 
 //reverse k group linked list through recursion
 ListNode *reverseKGroup(ListNode *head, int k) {
@@ -45,7 +70,6 @@ ListNode *reverseKGroup(ListNode *head, int k) {
         bb = bb->next;
     }
     ListNode *newhead = reverse_cursion(aa, bb);
-    cout<<newhead->val<<endl;
     aa->next = reverseKGroup(bb, k);
     return newhead;
 }
