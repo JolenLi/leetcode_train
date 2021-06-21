@@ -3,4 +3,4 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train "226. Invert Binary Tree .cpp")
+add_executable(leetcode_train  "114. Flatten Binary Tree to Linked List.cpp")
