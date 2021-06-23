@@ -3,4 +3,4 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train "654. Maximum Binary Tree.cpp")
+add_executable(leetcode_train "Tree/104. Maximum Depth of Binary Tree.cpp")
