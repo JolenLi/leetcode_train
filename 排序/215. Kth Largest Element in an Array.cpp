@@ -37,21 +37,27 @@ using namespace std;
 //    return i + 1;
 //}
 //
-//int paritition(vector<int> &nums, int low, int high) {
+
 //
-//    int l = low, h = high + 1;
-//    ////  快速选择+随机
-//    int i = rand() % (h - l) + l;
-//    swap(nums[low],nums[i]);
-//    while (l < h) {
-//        while (nums[++l] < nums[low] && l < high);
-//        while (nums[--h] > nums[low] && h > low);
-//        if (l < h)
-//            swap(nums[l], nums[h]);
+//int partition(vector<int> &nums, int low, int high) {
+//    ////产生[a,b]的随机整数
+//    int temp = rand() % (high - low + 1) + low;
+//    swap(nums[temp], nums[low]);
+//
+//    int pivot = nums[low];
+//    int i = low + 1, j = high;//双指针，分别指向首尾
+//    while (true) {
+//        while (i <= j && nums[i] <= pivot) i++;
+//        while (i <= j && nums[j] >= pivot) j--;
+//        if (i > j) break;
+//        //交换位置
+//        swap(nums[i], nums[j]);
 //    }
-//    swap(nums[low], nums[h]);
-//    return h;
+//    //交换主元
+//    swap(nums[j], nums[low]);
+//    return j;
 //}
+
 ////// 快速排序
 //void sort(vector<int> &nums, int low, int high) {
 //    if (low < high) {
@@ -92,7 +98,6 @@ void maxHeapify(vector<int> &nums, int i, int heapSize) {
 }
 
 void buildMaxHeap(vector<int> &nums, int heapSize) {
-
     for (int i = heapSize / 2; i >= 0; i--) {
         maxHeapify(nums, i, heapSize);
     }
