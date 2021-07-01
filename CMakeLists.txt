@@ -3,6 +3,6 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train  "dp/91. Decode Ways.cpp")
+add_executable(leetcode_train   "排序/215. Kth Largest Element in an Array.cpp")
 
 
