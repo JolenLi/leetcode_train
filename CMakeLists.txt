@@ -3,6 +3,6 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train   "排序/75. Sort Colors.cpp")
+add_executable(leetcode_train   "dp/45. Jump Game II.cpp")
 
 
