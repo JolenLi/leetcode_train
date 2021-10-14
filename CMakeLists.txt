@@ -3,6 +3,6 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train   "dp/45. Jump Game II.cpp")
+add_executable(leetcode_train  "Linked List/21. Merge Two Sorted Lists.cpp")
 
 
