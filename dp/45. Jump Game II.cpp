@@ -34,6 +34,7 @@ using namespace std;
 //}
 
 
+
 //// 贪心
 int jump(vector<int> &nums) {
     int farthest = 0;
