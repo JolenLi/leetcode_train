@@ -3,6 +3,6 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train   GA.cpp)
+add_executable(leetcode_train   ga.c)
 
 
