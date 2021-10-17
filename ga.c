@@ -218,5 +218,7 @@ void mian_loop(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]) {
             break;
         }
 
+
+
     }
 }
