@@ -196,6 +196,7 @@ void mutation(chrom popnext[MAX_PAIR]) {
 }
 
 //循环函数
+
 void mian_loop(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]) {
     int i, j;
 //    int loop = INTMAX_MAX;
