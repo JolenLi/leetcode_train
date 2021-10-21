@@ -46,6 +46,8 @@ ListNode *detectCycle(ListNode *head) {
     }
     return head;
 }
+
+
 int main() {
     ListNode *a, *b, *c, *d, *e;
     a = new ListNode;
@@ -59,5 +61,15 @@ int main() {
     while (a != nullptr) {
         cout << a->val;
         a = a->next;
+    }
+    unordered_set<ListNode*> vis;
+    while(headA){
+        vis.insert(headA);
+        headA = headA->next;
+    }
+    while(headB){
+        if(vis.count(headB))
+            return headB;
+        headB = headB->next;
     }
 }

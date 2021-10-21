@@ -22,7 +22,6 @@ struct TreeNode {
 };
 
 
-
 int maxIndex(vector<int> nums,int lo,int hi)
 {
     int maxNum = lo;

@@ -38,26 +38,23 @@ ListNode *reverse(ListNode *head)
     return pre;
 }
 
-
 bool fast_slow_pointer(ListNode *head)
 {
-    ListNode *tail = nullptr;
-    ListNode *slow = head,*fast = head;
-    while(fast!= nullptr&&fast->next!= nullptr)
-    {
-        slow = slow->next;
-        fast = fast->next->next;
+    ListNode *slow=head,*fast=head;
+    while(fast&&fast->next){
+        slow=slow->next;
+        fast=fast->next->next;
     }
-    tail = reverse(slow);
-
-    while(tail!= nullptr)
-    {
-        if(tail->val!=head->val)
-            return false;
-        tail = tail->next;
+    if(fast->next== nullptr)
+        slow = slow->next;
+    ListNode *ptr = reverse(slow);
+    while(ptr){
+        if(ptr->val!=head->val)
+            return 0;
+        ptr = ptr->next;
         head = head->next;
     }
-    return true;
+    return 1;
 }
 
 
@@ -143,7 +140,7 @@ int main() {
     c = new ListNode;
     d = new ListNode;
     e = new ListNode;
-    a->val = 5, b->val = 3, c->val = 2, d->val = 4, e->val = 5;
+    a->val = 5, b->val = 3, c->val = 2, d->val = 2, e->val = 5;
     a->next = b, b->next = c, c->next = d,d->next = e;
     cout << "original list";
     for (ListNode *test = a; test != nullptr; test = test->next) {

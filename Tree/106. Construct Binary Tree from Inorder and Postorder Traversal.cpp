@@ -41,29 +41,50 @@ void printTree(TreeNode *root) {
     }
 }
 
-unordered_map<int,int> ind;
+unordered_map<int, int> ind;
+
 TreeNode *build(const vector<int> &inOrder, const vector<int> &postOrder, int inStart, int inEnd, int postStart, int postEnd) {
-    if(inStart>inEnd) return nullptr;
-    TreeNode *root = new TreeNode(postOrder[postEnd]);
-    int inRootIndex = ind[postOrder[postEnd]];
-    int leftSize = inRootIndex-inStart;
+    if(inStart>inEnd)
+        return nullptr;
+    int mid = postOrder[postEnd];
+    int leftLen = ind[mid]-inStart-1;
 
-    root->left = build(inOrder,postOrder,inStart,inStart+leftSize-1,postStart,postStart+leftSize-1);
-    root->right = build(inOrder,postOrder,inStart+leftSize+1,inEnd,postStart+leftSize,postEnd-1);
+    TreeNode *root = new TreeNode(mid);
+    root->left = build(inOrder,postOrder,inStart,ind[mid]-1,postStart,postStart+leftLen);
+    root->right = build(inOrder,postOrder,ind[mid]+1,inEnd,postStart+leftLen+1,postEnd-1);
     return root;
-
 }
 
 TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
-    if (inorder.size() == 0)
-        return nullptr;
-    for(int i=0;i<inorder.size();i++)
-        ind[inorder[i]] = i;
-    return build(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1);
+    int n= inorder.size();
+    for(int i =0;i<n;i++)
+        ind[inorder[i]]=i;
+    return build(inorder,postorder,0,n-1,0,n-1);
+
 }
 
+//TreeNode *build(const vector<int> &inOrder, const vector<int> &postOrder, int inStart, int inEnd, int postStart, int postEnd) {
+//    if(inStart>inEnd) return nullptr;
+//    TreeNode *root = new TreeNode(postOrder[postEnd]);
+//    int inRootIndex = ind[postOrder[postEnd]];
+//    int leftSize = inRootIndex-inStart;
+//
+//    root->left = build(inOrder,postOrder,inStart,inStart+leftSize-1,postStart,postStart+leftSize-1);
+//    root->right = build(inOrder,postOrder,inStart+leftSize+1,inEnd,postStart+leftSize,postEnd-1);
+//    return root;
+//
+//}
+//
+//TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+//    if (inorder.size() == 0)
+//        return nullptr;
+//    for(int i=0;i<inorder.size();i++)
+//        ind[inorder[i]] = i;
+//    return build(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1);
+//}
+
 int main() {
-    vector<int> inorder = {9,3,15,20,7}, postorder = {9,15,7,20,3};
+    vector<int> inorder = {9, 3, 15, 20, 7}, postorder = {9, 15, 7, 20, 3};
     TreeNode *root = buildTree(inorder, postorder);
     printTree(root);
 }

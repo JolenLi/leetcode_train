@@ -3,6 +3,7 @@
 //
 
 #include<iostream>
+#include <stack>
 using namespace std;
 struct ListNode {
     int val;
@@ -13,22 +14,40 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
 
+
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
     ListNode *dummy = new ListNode(0,head);
-    ListNode *pre=dummy,*tail = dummy;
+    stack<ListNode*> stk;
+    ListNode *cur = dummy;
+    while(cur){
+        stk.push(cur);
+        cur=cur->next;
+    }
+    for(int i =0;i<n;i++){
+        stk.pop();
+    }
+    cur = stk.top();
+    cur->next = cur->next->next
+    return dummy->next;
+}
+
+
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode *dummy = new ListNode(0,head);
+    ListNode *pre = dummy,*tail=dummy;
     for(int i=0;i<=n;i++)
         tail = tail->next;
-    if(tail== nullptr)
-        return head->next;
 
-    while(tail!= nullptr)
-    {
+    while(tail!= nullptr){
+        pre  = pre->next;
         tail = tail->next;
-        pre = pre->next;
     }
+
     pre->next = pre->next->next;
-    return head;
+    return dummy->next;
 }
 
 int main()
