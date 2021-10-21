@@ -72,7 +72,7 @@ ListNode *merge(vector<ListNode *> &lists, int l, int r) {
         return lists[l];
     else if (l > r)
         return nullptr;
-    int mid = (l + r) >> 1;
+    int mid = l+((r-l)>>1);
     return merge2List(merge(lists, l, mid), merge(lists, mid + 1, r))
 }
 

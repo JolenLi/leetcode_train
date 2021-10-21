@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #include <stdlib.h>
-
+#include <time.h>
 #include <math.h>
 
 
@@ -30,12 +30,13 @@ int btod(chrom popcurrent);//二进制->十进制
 int fitness(int x);//计算适应度
 void pickchroms_Roulette(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]);//轮盘赌法算子选择
 void pickchroms_Tournament(chrom popcurrent[MAX_PAIR]);//锦标赛法算子选择
-void crossover(chrom popnext[MAX_PAIR]);//交叉操作
+void crossover(chrom popCurrent[MAX_PAIR],chrom popnext[MAX_PAIR]) ;//交叉操作
 void mutation(chrom popnext[MAX_PAIR]);//突变
 void mian_loop(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]); //循环进行选择交叉变异
 void print_bit(chrom popcurrent[MAX_SIZE]);//输出整条染色体的编码情况
 int main()//主函数
 {
+    srand(2);
     chrom popcurrent[MAX_PAIR];//初始种群规模
     chrom popnext[MAX_PAIR];//更新后种群规模
     int loop, Max;
@@ -46,7 +47,7 @@ int main()//主函数
     evpop(popcurrent);//初始化种群
     mian_loop(popcurrent, popnext);//进行循环
     Max = btod(popcurrent[0]);//期望已完成收敛
-    printf("\n最终结果为：%d\n", Max);
+//    printf("\n最终结果为：%d\n", Max);
     return 0;
 }
 
@@ -79,13 +80,24 @@ void evpop(chrom popcurrent[MAX_PAIR]) //函数：随机生成初始种群：
 }
 
 void print_bit(chrom popcurrent[MAX_SIZE]) {
+    double avg_fit = 0,max_fit=0;
+    chrom best = popcurrent[0];
     for (int j = 0; j < MAX_PAIR; j++) {
+        if (best.fit < popcurrent[j].fit)
+            best = popcurrent[j];
+        avg_fit += popcurrent[j].fit / (double) (MAX_SIZE);
+    }
+
+    for (int j = 0; j < MAX_PAIR; j++) {
+
+        max_fit = max_fit>popcurrent[j].fit?max_fit:popcurrent[j].fit;
         printf("pop[%d]=", j);
         for (int i = 0; i < MAX_SIZE; i++) {
             printf("%d", popcurrent[j].bit[i]);
         }
-        printf("\tvalue=%d\tfitness = %d\n", btod(popcurrent[j]), fitness(btod(popcurrent[j])));
+        printf("\tavg_fit=%f\tfitness = %d\n", avg_fit, fitness(btod(popcurrent[j])));
     }
+    printf("种群最大适应度为：%d\n\n", (int)(max_fit));
 }
 
 int btod(chrom popcurrent) //二进制->十进制
@@ -103,6 +115,38 @@ int fitness(int x)//求个体的适应度
     for (fit = 0; x; x >>= 1) // 循环移位
         fit += x & 1; // 如果当前位是1，则计数器加1
     return fit;
+}
+chrom chose_ind(chrom popcurrent[MAX_PAIR]){
+    int men;
+    int i, j;
+    double p; //生成4个0~1的随机值
+    double sum = 0.0; //find the total fitness of the population
+    long int seed = 12345;
+    chrom ans;
+    for (men = 0; men < MAX_PAIR; men++)//计算总适应度
+        sum = sum + popcurrent[men].fit;
+
+
+    for (men = 0; men < MAX_PAIR; men++)//计算选择概率
+        popcurrent[men].rfit = popcurrent[men].fit / sum;
+
+    //计算累计概率
+    popcurrent[0].cfit = popcurrent[0].rfit;
+    for (men = 1; men < MAX_PAIR; men++) {
+        popcurrent[men].cfit = popcurrent[men - 1].cfit + popcurrent[men].rfit;
+    }
+
+    p = rand() / (float) (RAND_MAX);
+//        printf("random is %f\n", p);//输出随机数（调试用）
+    if (p < popcurrent[0].cfit)
+        ans = popcurrent[0];
+    else
+        for (j = 0; j < MAX_PAIR - 1; j++)
+            if (popcurrent[j].cfit <= p && p < popcurrent[j + 1].cfit)
+                ans = popcurrent[j + 1];
+
+    ans.fit = fitness(btod(ans));//计算下一代染色体的适应度
+    return ans;
 }
 
 //基于轮盘赌法进行染色体选择（算子选择）
@@ -127,26 +171,14 @@ void pickchroms_Roulette(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR])//�
         popcurrent[men].cfit = popcurrent[men - 1].cfit + popcurrent[men].rfit;
     }
 
-//    for (i = 0; i < MAX_PAIR; i++)//输出累计概率（调试用）
-//    {
-//        printf("popcurrent[%d].cfit=%f\n", i, popcurrent[i].cfit);
-//    }
 
-    for (i = 0; i < MAX_PAIR; i++)//生成若干个0~1随机数，根据累计概率进行选择（轮盘赌法核心）
-    {//产生0~1之间的随机数
-        p = rand() / (float)(RAND_MAX);
-//        printf("random is %f\n", p);//输出随机数（调试用）
-        if (p < popcurrent[0].cfit)
-            popnext[i] = popcurrent[0];
-        else
-            for (j = 0; j < MAX_PAIR - 1; j++)
-                if (popcurrent[j].cfit <= p && p < popcurrent[j + 1].cfit)
-                    popnext[i] = popcurrent[j + 1];
 
-        popnext[i].fit = fitness(btod(popnext[i]));//计算下一代染色体的适应度
+    popnext[0] = popcurrent[0];
+    for (i = 0; i < MAX_PAIR; i++)//精英保留
+    {
+        if (popnext[0].fit < popcurrent[i].fit)
+            popnext[0] = popcurrent[i];
     }
-//    printf("选择个体:\n");
-//    print_bit(popnext);
 
 }
 
@@ -157,23 +189,34 @@ void pickchroms_Tournament(chrom popcurrent[MAX_PAIR]) {
 }
 
 //交叉操作
-void crossover(chrom popnext[MAX_PAIR]) {
+void crossover(chrom popCurrent[MAX_PAIR],chrom popnext[MAX_PAIR]) {
     double pc = 0.9;//进行交叉的概率
-    for (int i = 1; i < MAX_PAIR; i++) {
-        if ((rand() / (float)(RAND_MAX)) < pc) {
+
+
+
+    for(int i=1;i<MAX_PAIR;i++){
+        if((rand() / (float) (RAND_MAX)) > pc)
+        {
+            popnext[i] = chose_ind(popCurrent);
+        }else{
+            chrom x = chose_ind(popCurrent),y = chose_ind(popCurrent);
             int pos = rand() % MAX_SIZE;
-            int temp = popnext[i].bit[pos];
-            popnext[i].bit[pos] = popnext[i - 1].bit[pos];
-            popnext[i - 1].bit[pos] = temp;
+
+            for(int j=pos;j<MAX_SIZE;j++){
+                int temp = x.bit[j];
+                x.bit[j] = y.bit[j];
+                y.bit[j] = temp;
+            }
+            popnext[i] = x;
+            if(i+1==MAX_PAIR)
+                break;
+            popnext[i+1]=y;
+            i++;
         }
     }
-
     for (int i = 0; i < MAX_PAIR; i++) {
         popnext[i].fit = fitness(btod(popnext[i]));//更新适应度
     }
-
-//    printf("交叉后:\n");
-//    print_bit(popnext);
 
 }
 
@@ -181,7 +224,7 @@ void crossover(chrom popnext[MAX_PAIR]) {
 void mutation(chrom popnext[MAX_PAIR]) {
     int i, j;//第i个染色体的第j个基因
 
-    if ((rand() % 100) < 20)//即5%的几率产生变异
+    if ((rand() % 10) < 5)//即5%的几率产生变异
     {
         i = rand() % MAX_PAIR;//对应某一个染色体
         j = rand() % MAX_SIZE;//对应染色体上的基因
@@ -196,15 +239,18 @@ void mutation(chrom popnext[MAX_PAIR]) {
 }
 
 //循环函数
+chrom get_elite(chrom popnext[MAX_PAIR]) {
+
+}
+
 
 void mian_loop(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]) {
     int i, j;
 //    int loop = INTMAX_MAX;
     int loop = 999999;
     for (i = 0; i < loop; i++) {
-
         pickchroms_Roulette(popcurrent, popnext);//选择for(i = 0; i < MAX_PAIR ; i++)//打印轮盘赌法选择出的下一代染色体
-        crossover(popnext);//交叉
+        crossover(popcurrent,popnext);//交叉
         mutation(popnext);//变异
         printf("第%d次迭代：\n", i + 1);
         print_bit(popnext);
@@ -214,12 +260,9 @@ void mian_loop(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]) {
         for (j = 0; j < MAX_PAIR; j++)//更新下一代
             if (popcurrent[j].fit == 11)
                 finish = 1;
-        if (finish){
+        if (finish) {
             printf("\n第%d次迭代完成任务", i + 1);
             break;
         }
-
-
-
     }
 }
