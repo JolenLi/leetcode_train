@@ -116,8 +116,13 @@ KMP
 
 
 
-
 ## 笔记
+
+
+
+链表：快慢指针，反转链表，反转N组，回文链表（序列化）
+
+二叉树：前中后序遍历（递归），搜索树（中序遍历升序，增删改查）
 
 #### [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
@@ -125,3 +130,19 @@ KMP
 
 快慢指针第二次相遇的次数等于环长
 
+
+
+#### [96. Unique Binary Search Trees](https://leetcode-cn.com/problems/unique-binary-search-trees/)
+
+二叉树dp
+
+#### [95. Unique Binary Search Trees II](https://leetcode-cn.com/problems/unique-binary-search-trees-ii/)
+
+#### [1373. Maximum Sum BST in Binary Tree](https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/)
+
+返回指针
+
+```
+int *traverse(TreeNode *root) 
+int *res = new int[]{1, INT_MAX, INT_MIN, 1};
+```

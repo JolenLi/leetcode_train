@@ -3,6 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train  "Tree/538. Convert BST to Greater Tree.cpp")
+add_executable(leetcode_train  "1373. Maximum Sum BST in Binary Tree.cpp")
+
 
 

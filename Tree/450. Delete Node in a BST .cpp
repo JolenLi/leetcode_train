@@ -43,35 +43,27 @@ void printTree(TreeNode *root) {
         cout << endl;
     }
 }
-
-TreeNode *maxNode(TreeNode *root)
-{
-    root = root->left;
-    while(root->right)
-        root = root->right;
-    return root;
+int findMax(TreeNode* root){
+    if(root->right)
+        return findMax(root->right);
+    return root->val;
 }
-TreeNode *deleteNode(TreeNode *root, int key) {
-    if (root == nullptr)
-        return nullptr;
-    if (root->val > key)
-        root->left = deleteNode(root->left, key);
-    else if (root->val < key)
-        root->right = deleteNode(root->right, key);
-    else if (root->val == key) {
-        if(root->left== nullptr)
-            return root->right;
-        else if(root->right== nullptr)
-            return root->left;
-        else{
-            TreeNode *temp = maxNode(root);
-            swap(temp->val,root->val);
-            root->left = deleteNode(root->left,key);
-        }
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if(!root)return root;
+
+    if(root->val==key){
+        if(!root->left||!root->right)
+            return root->left?root->left:root->right;
+        root->val  = findMax(root->left);
+        root->left = deleteNode(root->left,root->val);
+        return root;
     }
+    else if(root->val>key)
+        root->left=deleteNode(root->left,key);
+    else if(root->val<key)
+        root->right = deleteNode(root->right,key);
     return root;
 }
-
 
 int main() {
     TreeNode *a = new TreeNode(1);
