@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train  "1373. Maximum Sum BST in Binary Tree.cpp")
+add_executable(leetcode_train   "图/1514. Path with Maximum Probability.cpp" "图/1631. Path With Minimum Effort.cpp")
 
 
 

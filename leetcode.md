@@ -146,3 +146,20 @@ KMP
 int *traverse(TreeNode *root) 
 int *res = new int[]{1, INT_MAX, INT_MIN, 1};
 ```
+
+
+
+#### [297. Serialize and Deserialize Binary Tree](https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/)
+
+序列化，使用引用列表数组来改值
+
+```
+TreeNode *deser(queue<string> &strQue) 
+```
+
+
+
+#### [743. Network Delay Time](https://leetcode-cn.com/problems/network-delay-time/)
+
+djkstra模版
+
