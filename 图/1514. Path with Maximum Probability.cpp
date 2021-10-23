@@ -27,7 +27,6 @@ double disTo(vector<vector<pair<double,int>>> graph, int start, int end) {
         if(prob<disTo[to]){
             continue;
         }
-        1631. Path With Minimum Effort
         for(auto [pNext,nodeNext]:graph[to]){
             double dis = disTo[to]*pNext;
             if(disTo[nodeNext]<dis){

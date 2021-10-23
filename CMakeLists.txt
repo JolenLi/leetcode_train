@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train   "图/1514. Path with Maximum Probability.cpp" "图/1631. Path With Minimum Effort.cpp")
+add_executable(leetcode_train  "图/797. All Paths From Source to Target.cpp" 图/stdc++.h)
 
 
 
