@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train  "图/797. All Paths From Source to Target.cpp" 图/stdc++.h)
+add_executable(leetcode_train   "图/207. Course Schedule.cpp" "图/210. Course Schedule II.cpp")
 
 
 
