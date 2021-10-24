@@ -20,6 +20,21 @@
 using namespace std;
 
 int singleNonDuplicate(vector<int> &nums) {
+    int lo = 0, hi = nums.size() - 1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo >> 1);
+        if (mid % 2)mid--;
+        if (mid != nums.size() - 1 && nums[mid] == nums[mid + 1])
+            lo = mid + 2;
+        else if (mid != 0 && nums[mid] == nums[mid - 1])
+            hi = mid - 2;
+        else
+            return nums[mid];
+    }
+    return nums[hi + 2];
+}
+
+int singleNonDuplicate(vector<int> &nums) {
     int left = 0, right = nums.size() - 1;
     while (left < right) {
         int mid = left + (right - left >> 1);
