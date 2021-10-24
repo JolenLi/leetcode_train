@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train   "图/207. Course Schedule.cpp" "图/210. Course Schedule II.cpp")
+add_executable(leetcode_train "binarySearch/410. Split Array Largest Sum.cpp")
 
 
 

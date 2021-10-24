@@ -126,6 +126,8 @@ KMP
 
 图：djkistra，二分图判断，有环图无环图的判断，拓扑排序，以及最经典的最小生成树，单源最短路径问题
 
+数组：二分搜索，分治
+
 #### [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
 快慢指针相遇点与起始点同时移动，会在环头相遇
