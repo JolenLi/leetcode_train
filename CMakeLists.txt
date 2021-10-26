@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train "binarySearch/410. Split Array Largest Sum.cpp")
+add_executable(leetcode_train  kmin.cpp)
 
 
 
