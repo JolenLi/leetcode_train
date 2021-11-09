@@ -138,6 +138,8 @@ chrom chose_ind(chrom popcurrent[MAX_PAIR]) {
 
 
 
+
+
 void Elite(chrom popcurrent[MAX_PAIR], chrom popnext[MAX_PAIR]) {
     popnext[0] = popcurrent[0];
     for (int i = 0; i < MAX_PAIR; i++)//精英保留
