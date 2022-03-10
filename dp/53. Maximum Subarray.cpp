@@ -19,16 +19,15 @@
 
 using namespace std;
 
-int maxSubArray(vector<int> &nums) {
+int maxSubArray(vector<int>& nums) {
     if (nums.size() == 0)
         return 0;
-    vector<int> memo(nums.size(), 0);
-    memo[0] = nums[0];
-    int lastSum = memo[0];
-    int ans = lastSum;
+    vector<int> dp(nums.size(), 0);
+    dp[0] = nums[0];
+    int ans = dp[0];
     for (int i = 1; i < nums.size(); i++) {
-        lastSum = max(lastSum+nums[i],nums[i]);
-        ans = max(ans,lastSum);
+        dp[i] = max(dp[i-1]+nums[i],nums[i]);
+        ans = max(ans,dp[i]);
     }
     return ans;
 }

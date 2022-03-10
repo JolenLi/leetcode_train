@@ -60,7 +60,7 @@ int main() {
     for (ListNode *test = a; test != nullptr; test = test->next) {
         cout<<test->val;
     }
-    cout<<endl<<"reverse list:";
+    cocut<<endl<<"reverse list:";
     ListNode *abc =reverseBetween(a,2,3) ;
 
     for (ListNode *test = abc; test != nullptr; test = test->next) {

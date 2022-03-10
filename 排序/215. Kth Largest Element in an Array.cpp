@@ -25,7 +25,7 @@ using namespace std;
 //    return nums[nums.size()-k];
 //}
 
-
+//// 快速选择排序
 //int partition(vector<int>& a, int l, int r) {
 //    int x = a[r], i = l - 1;
 //    for (int j = l; j < r; ++j) {
@@ -84,7 +84,7 @@ using namespace std;
 
 
 //// 堆排序
-void maxHeapify(vector<int> &nums, int i, int heapSize) {
+void maxHeapify(vector<int> &nums, int i, int heapSize) { //调整序号i的子树，如果不符合则交换，然后再对子树递归调整
     int l = i * 2 + 1, r = i * 2 + 2;
     int maxNum = i;
     if (l < heapSize && nums[l] > nums[maxNum])
@@ -98,7 +98,7 @@ void maxHeapify(vector<int> &nums, int i, int heapSize) {
 }
 
 void buildMaxHeap(vector<int> &nums, int heapSize) {
-    for (int i = heapSize / 2; i >= 0; i--) {
+    for (int i = heapSize / 2; i >= 0; i--) { //heapsize/2 的序号下面没有左右树, 实现了从右到左，从下到上调整子树。
         maxHeapify(nums, i, heapSize);
     }
 }
@@ -106,12 +106,10 @@ void buildMaxHeap(vector<int> &nums, int heapSize) {
 int findKthLargest(vector<int> &nums, int k) {
     int heapSize = nums.size();
     buildMaxHeap(nums, heapSize);
-
-    for (int i = 1; i < k; i++) {
+    for (int i = 1; i < k;i++) { // 将其与末尾元素进行交换，此时末尾就为最大值。然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。
         swap(nums[0], nums[heapSize - i]);
         maxHeapify(nums, 0, heapSize - i);
     }
-
     return nums[0];
 }
 
@@ -119,3 +117,10 @@ int main() {
     vector<int> num = {3, 2, 3, 1, 2, 4, 5, 5, 6};
     cout << findKthLargest(num, 4);
 }
+```
+<details>
+<summary>点击时的区域标题：点击查看详细内容</summary>
+<p> - 测试 测试测试</p>
+<pre><code>title，value，callBack可以缺省</code></pre>
+</details>
+```
