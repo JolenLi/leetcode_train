@@ -24,6 +24,21 @@ vector<int> twoSum(vector<int>& nums, int target) {
     return vec;
 }
 
+vector<int> twoSum(vector<int>& nums, int target) {
+    vector<int> ans(2);
+    unordered_map<int,int> hashTable;
+    for(int i=0;i<nums.size();i++){
+        int num = nums[i];
+        if(hashTable.count(target-num)){
+            ans = {i,hashTable[target-num]};
+            break;
+        }else
+            hashTable[num] = i;
+    }
+    return ans;
+}
+
+
 int main(){
     vector<int> nums = {1,2,3,4,5};
     twoSum(nums,5);

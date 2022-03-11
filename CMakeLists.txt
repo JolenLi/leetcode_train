@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train main.cpp "Linked List/206. Reverse Linked List.cpp" "dp/121. Best Time to Buy and Sell Stock.cpp")
+add_executable(leetcode_train main.cpp "Linked List/206. Reverse Linked List.cpp" "dp/121. Best Time to Buy and Sell Stock.cpp" "20. Valid Parentheses.cpp")
 
 
 

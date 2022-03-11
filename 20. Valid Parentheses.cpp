@@ -1,12 +1,7 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <stack>
-#include <queue>
-#include <unordered_map>
+//
+// Created by Jolen on 2022/3/11.
+//
 
-using namespace std;
 unordered_map<char, char> pairs = {
         {')', '('},
         {']', '['},
@@ -15,7 +10,7 @@ unordered_map<char, char> pairs = {
 
 bool isValid(string s) {
     stack<char> stk;
-    for (int i = 1; i < s.size(); i++) {
+    for (int i = 0; i < s.size(); i++) {
         if (!stk.empty()) {
             char top = stk.top();
             if (top == pairs[s[i]])
@@ -27,9 +22,4 @@ bool isValid(string s) {
         }
     }
     return stk.empty();
-}
-
-int main() {
-    vector<int> num = {3, 2, 3, 1, 2, 4, 5, 5, 6};
-    cout << findKthLargest(num, 4);
 }
