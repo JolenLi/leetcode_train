@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train "DFS_BFS/22. Generate Parentheses.cpp")
+add_executable(leetcode_train  "Array/242. Valid Anagram.cpp")
 
 
 
