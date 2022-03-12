@@ -30,6 +30,6 @@ bool isValid(string s) {
 }
 
 int main() {
-    vector<int> num = {3, 2, 3, 1, 2, 4, 5, 5, 6};
-    cout << findKthLargest(num, 4);
+    int a=3,b=3;
+    cout<<(a^b)<<endl;
 }

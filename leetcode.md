@@ -16,6 +16,16 @@ n&(n-1) 去除 n 的位级表示中最低的那一位 1。
 
 n&(-n) 得到 n 的位级表示中最低的那一位 1。
 
+
+#### [数组中的第K个最大元素(TOP K)](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
+堆排序，快速选择排序
+
+
+
+#### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+滑动窗口
+
+
 #### [完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
 
 递归+位运算
