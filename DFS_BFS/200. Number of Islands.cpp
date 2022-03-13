@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 void findIsland(vector<vector<char>> &grid, int i, int j) {
 
     queue<pair<int, int>> list;
@@ -62,22 +63,22 @@ void findIsland(vector<vector<char>> &grid, int i, int j) {
 
 //dfs
 void dfs(vector<vector<char>> &grid, int i, int j) {
-    int r = grid.size();
-    int c = grid[0].size();
-    grid[i][j] = 0;
-    if (i > 0 && grid[i - 1][j] == '1') dfs(grid, i - 1, j);
-    if (i < r - 1 && grid[i + 1][j] == '1') dfs(grid, i + 1, j);
-    if (j > 0 && grid[i][j - 1] == '1') dfs(grid, i, j - 1);
-    if (j < c - 1 && grid[i][j + 1] == '1') dfs(grid, i, j + 1);
+    int width = map.size();
+    int length = map[0].size();
+    if (i < 0 || j < 0 || i >= width || j >= length || map[i][j] == '0')
+        return;
+    map[i][j] = '0';
+    dfs(map, i - 1, j);
+    dfs(map, i + 1, j);
+    dfs(map, i, j + 1);
+    dfs(map, i, j - 1);
 
 }
 
 int numIslands(vector<vector<char>> &grid) {
-    int r = grid.size();
-    int c = grid[0].size();
     int nums = 0;
-    for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
+    for (int i = 0; i < grid.size(); i++) {
+        for (int j = 0; j < grid[0].size(); j++) {
             if (grid[i][j] == '1') {
                 nums++;
                 dfs(grid, i, j);

@@ -43,17 +43,15 @@ void printTree(TreeNode *root) {
         cout << endl;
     }
 }
-
-bool check(TreeNode *root, int64_t min, int64_t max) {
-    if (root == nullptr)
-        return true;
-    if (root->val >= max || root->val <= min)
+bool check(TreeNode *root, long long maxi, long long mini) {
+    if (!root) return true;
+    if (root->val > maxi || root->val < mini)
         return false;
-    return check(root->left, min, root->val) && check(root->right, root->val, max);
+    return check(root->left,root->val,mini)&&check(root->right,maxi,root->val);
 }
 
 bool isValidBST(TreeNode *root) {
-    return check(root, INT64_MIN, INT64_MAX);
+    return check(root, INT64_MAX, INT64_MIN);
 }
 
 int main() {

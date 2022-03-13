@@ -25,6 +25,12 @@ n&(-n) 得到 n 的位级表示中最低的那一位 1。
 #### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 滑动窗口
 
+#### [560. 和为 K 的子数组](https://leetcode-cn.com/problems/subarray-sum-equals-k/)
+前缀和+哈希表优化
+
+#### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
+dp，括号消除
+
 
 #### [完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
 

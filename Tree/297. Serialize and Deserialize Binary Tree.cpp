@@ -53,9 +53,8 @@ void printTree(TreeNode *root) {
     }
 }
 
-//SEP = ",";
-//NULL = "#";
 
+//// 使用栈的dfs
 string serialize(TreeNode *root) {
     string str = "";
     if (!root) return "#";
@@ -98,6 +97,72 @@ TreeNode *deserialize(string data) {
 }
 
 
+////  使用队列的bfs
+//queue<string> split(string data) {
+//    string str;
+//    queue<string> que;
+//    for (auto &c:data) {
+//        if (c == ',') {
+//            que.push(str);
+//            str = "";
+//        } else
+//            str += c;
+//    }
+//    return que;
+//}
+//
+//string serialize(TreeNode *root) {
+//    string str = "";
+//    queue<TreeNode *> que;
+//    que.push(root);
+//    while (!que.empty()) {
+//        TreeNode *cur = que.front();
+//        que.pop();
+//        if (cur == nullptr)
+//            str += "#,";
+//        else {
+//            str += to_string(cur->val);
+//            str += ",";
+//            que.push(cur->left);
+//            que.push(cur->right);
+//        }
+//    }
+//    return str;
+//}
+//
+//
+//// Decodes your encoded data to tree.
+//TreeNode *deserialize(string data) {
+//    queue<string> que = split(data);
+//    string cur = que.front();
+//    que.pop();
+//    queue<TreeNode *> nodes;
+//
+//    TreeNode *root;
+//    if (cur != "#") {
+//        root = new TreeNode(stoi(cur));
+//        nodes.push(root);
+//    } else
+//        root = nullptr;
+//    while (!nodes.empty()) {
+//        TreeNode *cur = nodes.front();
+//        nodes.pop();
+//        string left = que.front();
+//        que.pop();
+//        string right = que.front();
+//        que.pop();
+//        if (left != "#") {
+//            cur->left = new TreeNode(stoi(left));
+//            nodes.push(cur->left);
+//        }
+//        if (right != "#") {
+//            cur->right = new TreeNode(stoi(right));
+//            nodes.push(cur->right);
+//        }
+//    }
+//    return root;
+//}
+//
 
 
 
