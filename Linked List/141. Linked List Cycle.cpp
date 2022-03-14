@@ -26,9 +26,9 @@ struct ListNode {
 //            listSet.insert(head);
 //            head = head->next
 //    }
-
 //    return false;
 //}
+
 bool hasCycle(ListNode *head) {
     if(!head||!head->next)
         return false;

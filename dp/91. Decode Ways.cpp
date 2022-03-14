@@ -1,12 +1,4 @@
 //
-// Created by Jolen on 2021/6/27.
-//
-
-//
-// Created by Jolen on 2021/6/27.
-//
-
-//
 // Created by Jolen on 2021/6/26.
 //
 
@@ -25,29 +17,51 @@
 #include<map>
 #include<unordered_map>
 
+#include <cstring>
+#include <string>
 
 using namespace std;
 
+//
+//int numDecodings(string s) {
+//    vector<int> dp(s.size() + 1, 0);
+//    if (s[0] == '0')return 0;
+//    dp[0] = 1, dp[1] = 1;
+//    for (int i = 1; i < s.size(); i++) {
+//        if (s[i] == '0') {
+//            if (s[i - 1] > '0' && s[i - 1] <= '2')
+//                dp[i + 1] = dp[i - 1];
+//            else
+//                return 0;
+//        } else if (s[i - 1] == '0')
+//            dp[i + 1] = dp[i];
+//        else if (s[i - 1] == '1')
+//            dp[i + 1] = dp[i] + dp[i - 1];
+//        else if (s[i - 1] == '2' && s[i] >= '0' && s[i] <= '6') {
+//            dp[i + 1] = dp[i] + dp[i - 1];
+//        } else
+//            dp[i + 1] = dp[i];
+//    }
+//    return dp[s.size()];
+//}
+
+
+
 int numDecodings(string s) {
-    if (s[0] == '0')
-        return 0;
-    vector<int> memo(s.size() + 1, 0);
-    memo[0] = 1, memo[1] = 1;
-    for (int i = 2; i <= s.size(); i++) {
-        if (s[i - 1] == '0') {
-            if (s[i - 2] - '0' <= 2 && s[i - 2] - '0' > 0)
-                memo[i] = memo[i - 2];
-            else
-                return 0;
-        } else if (s[i - 2] == '1' || (s[i - 2] == '2' && (s[i - 1] - '0') <= 6))
-            memo[i] = memo[i - 2] + memo[i - 1];
-        else
-            memo[i] = memo[i - 1];
+    vector<int> dp(s.size() + 1, 0);
+    if (s[0] == '0')return 0;
+    dp[0] = 1, dp[1] = 1;
+    for (int i = 1; i < s.size(); i++) {
+        if (s[i] != '0')
+            dp[i + 1] += dp[i];
+        if (s[i - 1] != '0' && (s[i - 1] - '0') * 10 + s[i] - '0' <= 26)
+            dp[i + 1] += dp[i - 1];
     }
-    return memo[s.size()];
+    return dp[s.size()];
 }
 
 int main() {
-    cout << numDecodings("226") << endl;
+    string s = "2026";
+    cout << numDecodings(s) << endl;
 }
 
