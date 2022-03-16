@@ -23,36 +23,26 @@
 using namespace std;
 
 
-
-int min(int a,int b,int c)
-{
-    return min(a,min(b,c));
+int getMin(int a, int b, int c) {
+    return min(min(a, b), c);
 }
+
 int minDistance(string word1, string word2) {
-    vector<vector<int>> memo(word1.size() + 1, vector<int>(word2.size() + 1, 0));
-    for (int i = 0; i <= word1.size(); i++)
-        memo[i][0] = i;
-    for (int i = 0; i <= word2.size(); i++)
-        memo[0][i] = i;
+    int m = word1.size(), n = word2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    for (int i = 0; i <= m; i++)
+        dp[i][0] = i;
+    for (int j; j <= n; j++)
+        dp[0][j] = j;
 
-    for (int i = 1;i<=word1.size();i++)
-        for(int j = 1;j<=word2.size();j++)
-        {
-            if(word1[i-1]==word2[j-1])
-            {
-                memo[i][j] = memo[i-1][j-1];
-            }else{
-                memo[i][j] = min(memo[i-1][j],memo[i][j-1],memo[i-1][j-1])+1;
-            }
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++) {
+            if (word1[i - 1] == word2[j - 1])
+                dp[i][j] = getMin(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] - 1) + 1;
+            else
+                dp[i][j] = getMin(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
         }
-        for(auto i:memo)
-    {
-        for(auto j:i)
-            cout<<j<<" ";
-        cout<<endl;
-    }
-    return memo[word1.size()][word2.size()];
-
+    return dp[m][n];
 }
 
 int main() {

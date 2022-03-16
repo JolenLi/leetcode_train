@@ -1,6 +1,13 @@
 //
-// Created by Jolen on 2021/6/22.
+// Created by Jolen on 2021/6/24.
 //
+//
+// Created by Jolen on 2021/6/23.
+//
+
+
+
+//// dp
 
 
 #include<vector>
@@ -12,58 +19,33 @@
 #include<map>
 #include<unordered_map>
 
+
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
 
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+int getMin(int a, int b, int c) {
+    return min(min(a, b), c);
+}
 
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+int minDistance(string word1, string word2) {
+    int m = word1.size(), n = word2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    for (int i = 0; i <= m; i++)
+        dp[i][0] = i;
+    for (int j; j <= n; j++)
+        dp[0][j] = j;
 
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-void printTree(TreeNode *root) {
-    queue<TreeNode *> list;
-    list.push(root);
-    while (!list.empty()) {
-        int numLevel = list.size();
-        for (int i = 0; i < numLevel; i++) {
-            auto head = list.front();
-            list.pop();
-            if (head == nullptr)
-                continue;
-            cout << head->val << " ";
-            list.push(head->left);
-            list.push(head->right);
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++) {
+            if (word1[i - 1] == word2[j - 1])
+                dp[i][j] = getMin(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] - 1) + 1;
+            else
+                dp[i][j] = getMin(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
         }
-        cout << endl;
-    }
-}
-
-bool check(TreeNode *root, long long maxi, long long mini) {
-    if (!root) return true;
-    if (root->val > maxi || root->val < mini)
-        return false;
-    return check(root->left,root->val,mini)&&check(root->right,maxi,root->val);
-}
-
-bool isValidBST(TreeNode *root) {
-    return check(root, INT64_MAX, INT64_MIN);
+    return dp[m][n];
 }
 
 int main() {
-    TreeNode *a = new TreeNode(1);
-    TreeNode *b = new TreeNode(11);
-    TreeNode *c = new TreeNode(150);
-    TreeNode *d = new TreeNode(300);
-    TreeNode *A = new TreeNode(10, a, b);
-    TreeNode *B = new TreeNode(200, c, d);
-    TreeNode *head = new TreeNode(100, A, B);
-    printTree(head);
-    cout << isValidBST(head);
-
+    string word1 = "horse", word2 = "ros";
+    cout << minDistance(word1, word2);
 }

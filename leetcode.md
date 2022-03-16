@@ -32,6 +32,14 @@ n&(-n) 得到 n 的位级表示中最低的那一位 1。
 dp，括号消除
 
 
+####[752. 打开转盘锁](https://leetcode-cn.com/problems/open-the-lock/)
+双端bfs；
+
+
+####[41. 缺失的第一个正数](https://leetcode-cn.com/problems/first-missing-positive/)
+原地哈希
+
+
 #### [完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
 
 递归+位运算

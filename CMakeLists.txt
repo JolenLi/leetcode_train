@@ -3,7 +3,7 @@ project(leetcode_train)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(leetcode_train  "dp/5. Longest Palindromic Substring.cpp")
+add_executable(leetcode_train "Linked List/92. Reverse Linked List II.cpp")
 
 
 
