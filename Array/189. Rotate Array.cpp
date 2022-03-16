@@ -13,18 +13,28 @@
 
 using namespace std;
 string s = "ds";
-void rotate(vector<int>& nums, int k) {
-    vector<int> numsCopy(nums.size(),0);
-    int size = nums.size();
-    for(int i = 0;i<nums.size();i++)
-    {
-        numsCopy[(i+k)%size] = nums[i];
-    }
-    for(int i = 0;i<nums.size();i++)
-    {
-        nums[i] = numsCopy[i];
+void rotate(vector<int> &nums, int k) {
+    int count = 0, n = nums.size();
+    for (int i = 0; i < k; i++) {
+        int temp = nums[i];
+        int next=i;
+        do {
+            next = (next + k) % n;
+            swap(temp,nums[next]);
+            if(++count==n)
+                return ;
+        }while (next != i);
     }
 }
+//void rotate(vector<int>& nums, int k) {
+//    vector<int> numsCopy(nums.size(),0);
+//    int size = nums.size();
+//    for(int i = 0;i<nums.size();i++)
+//        numsCopy[(i+k)%size] = nums[i];
+//
+//    for(int i = 0;i<nums.size();i++)
+//        nums[i] = numsCopy[i];
+//}
 
 //void reverse(vector<int>& nums, int  start ,int end){
 //    while(start<end)
@@ -42,6 +52,6 @@ void rotate(vector<int>& nums, int k) {
 //}
 
 int main() {
-    vector<int> prices = {7, 1, 5, 3, 6, 4};
-    rotate(prices,2);
+    vector<int> prices ={1,2,3,4,5,6,7};
+    rotate(prices, 3);
 }
