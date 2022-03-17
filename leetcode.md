@@ -65,6 +65,8 @@ dp，括号消除
 迭代/递归 
 
 
+####[300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-e/)
+动态规划+二分查找
 
 #### [11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 

@@ -13,6 +13,7 @@ public:
         }
         illegal.insert(start);
         return false;
+
     }
     bool wordBreak(string s, vector<string>& wordDict) {
         for(auto &str:wordDict)
