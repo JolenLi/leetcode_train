@@ -34,7 +34,6 @@ public:
             cur->val += val;
         }
     }
-
     int getSum(string prefix){
         int sum = 0;
         Trie *cur = this;
