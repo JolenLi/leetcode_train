@@ -22,22 +22,25 @@
 
 using namespace std;
 
-int method(vector<int> nums) {
-    int maxi = 0, sum = 0;
-    for (int i = 0; i < nums.size(); i++) {
-        sum = max(sum + nums[i], 0);
-        maxi = max(maxi, sum);
-        cout << i << " " << maxi << endl;
-    }
-    cout << maxi << endl;
-    for (int i = 0; i < nums.size() - 1; i++) {
-        sum = max(sum + nums[i], nums[i]);
-        maxi = max(maxi, sum);
-    }
-    return maxi;
+int Gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return Gcd(b, a % b);
 }
 
+int solution(int n) {
+    int cnt = 0;
+    for (int i = 1; i <= sqrt(n); i++) {
+        if (n % i == 0 && Gcd(i, n / i) == 1){
+            cout<<i<<" "<<n/i<<" "<<n<<endl;
+            cnt++;
+        }
+
+    }
+    return cnt;
+}
+
+
 int main() {
-    vector<int> nums = {5, -3, 5};
-    cout << method(nums) << endl;
+    cout << solution(30) << endl;
 }

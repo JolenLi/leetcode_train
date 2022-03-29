@@ -34,6 +34,7 @@ int singleNonDuplicate(vector<int> &nums) {
     return nums[hi + 2];
 }
 
+
 int singleNonDuplicate(vector<int> &nums) {
     int left = 0, right = nums.size() - 1;
     while (left < right) {
@@ -50,7 +51,6 @@ int singleNonDuplicate(vector<int> &nums) {
         } else {
             if (nums[mid] == nums[mid - 1])
                 left = mid + 1;
-
             else if (nums[mid] == nums[mid + 1])
                 right = mid - 1;
             else
