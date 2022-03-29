@@ -49,35 +49,34 @@ vector<int> searchRange(vector<int> &nums, int target) {
 }
 //
 //vector<int> searchRange(vector<int> &nums, int target) {
-//
-//    int resL = -1, resR = -1;
-//    if (nums.empty())
-//        return {resL, resR};
-//    int l = 0, r = nums.size() - 1;
-//    while (l < r) {
-//        int mid = l + (r - l >> 1);
-//        if (nums[mid] >= target) {
-//            r = mid;
-//        } else {
-//            l = mid + 1;
-//        }
+//    int ansL = -1, ansR = -1;
+//    int left = 0, right = nums.size();
+//    while (left < right) {
+//        int mid = ((right - left) >> 1) + left;
+//        if (nums[mid] == target)
+//            right = mid;
+//        else if (nums[mid] < target)
+//            left = mid + 1;
+//        else if (nums[mid] > target)
+//            right = mid;
 //    }
-//    if (nums[l] == target)
-//        resL = l;
+//    if (left < nums.size() && nums[left] == target)
+//        ansL = left;
 //
-//    l = 0, r = nums.size() - 1;
-//    while (l < r) {
-//        int mid = l + (r - l + 1 >> 1);
-//        if (nums[mid] <= target) {
-//            l = mid;
-//        } else {
-//            r = mid - 1;
-//        }
+//    left = 0, right = nums.size();
+//    while (left < right) {
+//        int mid = ((right - left) >> 1) + left;
+//        if (nums[mid] == target)
+//            left = mid + 1;
+//        else if (nums[mid] < target)
+//            left = mid + 1;
+//        else if (nums[mid] > target)
+//            right = mid;
 //    }
-//    if (nums[l] == target)
-//        resR = l;
+//    if (left - 1 < nums.size() && nums[left - 1] == target)
+//        ansR = left - 1;
 //
-//    return {resL, resR};
+//    return {ansL, ansR};
 //}
 
 int main() {

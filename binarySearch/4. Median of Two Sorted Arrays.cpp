@@ -54,7 +54,6 @@ double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
                     m2 = (r2 + l2) / 2;
             }
         } else {
-            1,2,3,4,5,\\6
             if (l2==0||nums1[m1] <= nums2[m2]) {
                 res -= (l1/2);
             }
@@ -63,8 +62,6 @@ double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
 }
 
 
-1,2,3,4,5
-10
 
 int main() {
     cout << mySqrt(9) << endl;

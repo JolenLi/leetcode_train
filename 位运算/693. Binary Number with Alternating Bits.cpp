@@ -14,18 +14,19 @@
 using namespace std;
 
 bool hasAlternatingBits(int n) {
-    if (n < 2)
-        return true;
-    bool bit = n & 1;
-    n = n >> 1;
-    while (n) {
-        if (!((n & 1) ^ bit))
+    while(n>=2){
+        int bit = n&1;
+        n = n>>1;
+        if(!bit^(n&1))
             return false;
-        bit = !bit;
-        n = n >> 1;
     }
     return true;
 }
+
+//bool hasAlternatingBits(int n) {
+//    long a = n^(n>>1);
+//    return (a&(a+1))==0;
+//}
 
 int main() {
 

@@ -22,18 +22,19 @@
 using namespace std;
 
 int mySqrt(int x) {
-    int left = 0, right = x, mid;
-    while (left < right) {
-        mid = left+(1+(right-left) >> 1);
-        if ((long long) mid * mid > x) {
-            right = mid - 1;
-        } else {
-            left = mid;
-        }
+    int lo = 0, hi = x;
+    while (lo <= hi) {
+        int mid = lo + ((hi - lo) >> 1);
+        long long multi = (long long) mid * mid;
+        if (multi == x)
+            return mid;
+        else if (multi < x)
+            lo = mid + 1;
+        else if (multi > x)
+            hi = mid - 1;
     }
-    return left;
+    return hi;
 }
-
 
 int main() {
     cout << mySqrt(9) << endl;
