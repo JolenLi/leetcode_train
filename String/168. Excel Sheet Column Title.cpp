@@ -27,11 +27,10 @@ string convertToTitle(int columnNumber) {
     string str = "";
     while (columnNumber) {
         columnNumber--;
-        int res = columnNumber%26;
-        columnNumber/=26;
-        str+=('A'+res);
+        str += columnNumber % 26 + 'A';
+        columnNumber /= 26;
     }
-    reverse(str.begin(),str.end());
+    reverse(str.begin(), str.end());
     return str;
 }
 

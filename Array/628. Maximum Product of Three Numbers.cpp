@@ -31,7 +31,6 @@ int maximumProduct(vector<int> &nums) {
     return max(min1 * min2 * max1, max1 * max2 * max3);
 }
 
-
 int maximumProduct(vector<int> &nums) {
     sort(nums.begin(), nums.end());
     int size = nums.size();
