@@ -52,7 +52,8 @@ dp，括号消除
 
 固定+双指针
 
-
+#### [33. 搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+二分查找
 
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
@@ -115,8 +116,8 @@ KMP
 前缀和
 
 
-
-
+####[剑指 Offer 56 - II. 数组中数字出现的次数 II](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/)
+出现三次的数字，有限状态机
 
 #### [347. 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/)
 
