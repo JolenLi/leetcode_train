@@ -8,6 +8,7 @@ unordered_map<char, char> pairs = {
         {'}', '{'}
 };
 
+
 bool isValid(string s) {
     stack<char> stk;
     for (int i = 0; i < s.size(); i++) {

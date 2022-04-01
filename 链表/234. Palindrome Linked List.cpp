@@ -25,36 +25,45 @@ void printList(ListNode *head)
 
 }
 
-ListNode *reverse(ListNode *head)
-{
-    ListNode *pre = nullptr, *cur = head,*nxt;
-    while(cur!= nullptr)
-    {
-        nxt = cur->next;
-        cur->next = pre;
-        pre = cur;
-        cur = nxt;
-    }
-    return pre;
-}
 
-bool fast_slow_pointer(ListNode *head)
-{
-    ListNode *slow=head,*fast=head;
-    while(fast&&fast->next){
-        slow=slow->next;
-        fast=fast->next->next;
+ListNode *reverse(ListNode* head){
+    ListNode *prev = nullptr,*cur = head;
+    while(cur){
+        ListNode *next = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur= next;
     }
-    if(fast->next== nullptr)
+    return prev;
+}
+// ListNode *reverse(ListNode* head){
+//     if(head==nullptr||head->next==nullptr)
+//         return head;
+//     ListNode *newHead = reverse(head->next);
+//     head->next->next= head;
+//     head->next = nullptr;
+//     return newHead;
+// }
+
+
+
+bool isPalindrome(ListNode *head)
+{
+    if(head==nullptr||head->next==nullptr)
+        return true;
+    ListNode *slow = head,*fast = head->next;
+    while(fast&&fast->next){
         slow = slow->next;
-    ListNode *ptr = reverse(slow);
-    while(ptr){
-        if(ptr->val!=head->val)
-            return 0;
-        ptr = ptr->next;
+        fast = fast->next->next;
+    }
+    fast = reverse(slow->next);
+    while(fast&&head){
+        if(fast->val!=head->val)
+            return false;
+        fast = fast->next;
         head = head->next;
     }
-    return 1;
+    return true;
 }
 
 

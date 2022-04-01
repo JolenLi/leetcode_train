@@ -4,6 +4,7 @@
 
 #include<iostream>
 #include <stack>
+#include <queue>
 using namespace std;
 struct ListNode {
     int val;
@@ -49,6 +50,7 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     pre->next = pre->next->next;
     return dummy->next;
 }
+
 
 int main()
 {

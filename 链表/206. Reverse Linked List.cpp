@@ -31,10 +31,10 @@ ListNode* reverseList(ListNode* head) {
 
 // 递归
 ListNode* reverseList(ListNode* head) {
-    if(head==nullptr||head->next==nullptr)
+    if(!head||!head->next)
         return head;
-    ListNode *p = reverseList(head->next);
+    ListNode *newHead = reverseList(head->next);
     head->next->next = head;
     head->next = nullptr;
-    return p;
+    return newHead;
 }

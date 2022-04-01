@@ -5,6 +5,7 @@
 
 
 #include<iostream>
+#include <stack>
 using namespace std;
 struct ListNode {
     int val;
@@ -15,19 +16,36 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* swapPairs(ListNode* head) {
-    if(head==nullptr||head->next== nullptr)
-        return head;
 
-    ListNode *newHead = head->next;
-    head->next = swapPairs(newHead->next);
-    newHead->next = head;
 
-    return newHead;
+stack<int> stk1,stk2;
+ListNode* buildList(ListNode* tail,int add){
+    int val=add;
+    if(!stk1.empty()){
+        val += stk1.top();
+        stk1.pop();
+    }
+    if(!stk2.empty()){
+        val += stk2.top();
+        stk2.pop();
+    }
+    ListNode *head = new ListNode(val%10,tail);
+    if(!stk1.empty()||!stk2.empty()||val/10!=0)
+        head = buildList(head,val/10);
+    return head;
+
 }
-
-
-
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    while(l1){
+        stk1.push(l1->val);
+        l1 = l1->next;
+    }
+    while(l2){
+        stk2.push(l2->val);
+        l2 = l2->next;
+    }
+    return buildList(nullptr,0);
+}
 
 int main()
 {
