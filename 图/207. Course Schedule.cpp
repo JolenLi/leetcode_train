@@ -5,46 +5,72 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-bool hasCircus;
-vector<vector<int>> edges;
-vector<int> visited;
-/// visted=0 未检查过
-/// visted=1 正在检查
-/// visted=2 查过但是恢复了
 
-void dfs(int i) {
-    if (visited[i] == 1 || hasCircus) {
-        hasCircus = true;
-        return;
-    }
-    visited[i] = 1;
-    for (const auto &nextId:edges[i]) {
-        if (visited[nextId] == 1 || hasCircus) {
-            hasCircus = true;
-            return;
-        } else if (visited[nextId] == 0) {
-            dfs(nextId);
+//vector<vector<int>> mustLearn;
+//vector<int> visited;
+/////// visted=0 未检查过
+/////// visted=1 正在检查
+/////// visted=2 备忘可以学习
+//
+//bool learn(int course) {
+//    if (visited[course] == 1)
+//        return false;
+//    if (visited[course] == 2)
+//        return true;
+//    visited[course] = 1;
+//    for (const int &needLearn:mustLearn[course])
+//        if (!learn(needLearn))
+//            return false;
+//    visited[course] = 2;
+//    return true;
+//}
+//
+//bool canFinish(int numCourses, vector<vector<int>> &prerequisites) {
+//    mustLearn = vector<vector<int>>(numCourses);
+//    visited = vector<int>(numCourses, 0);
+//    for (vector<int> &require:prerequisites)
+//        mustLearn[require[0]].push_back(require[1]);
+//    for (int i = 0; i < numCourses; i++)
+//        if (!learn(i))
+//            return false;
+//    return true;
+//}
+
+vector<vector<int>> mustLearn;
+vector<int> indeg;
+
+bool bfs(int numCourses){
+    queue<int> courses;
+    for (int i = 0; i < numCourses; i++)
+        if (indeg[i] == 0)
+            courses.push(i);
+    int learned = 0;
+    while (!courses.empty()) {
+        int course = courses.front();
+        courses.pop();
+        learned++;
+        for (const int &next:mustLearn[course]) {
+            indeg[next]--;
+            if (indeg[next] == 0)
+                courses.push(next);
         }
     }
-    visited[i] = 2;
+    return learned == numCourses;
+}
+bool canFinish(int numCourses, vector<vector<int>> &prerequisites) {
+    mustLearn.resize(numCourses);
+    indeg.resize(numCourses, 0);
+    for (vector<int> &require:prerequisites) {
+        mustLearn[require[0]].push_back(require[1]);
+        indeg[require[1]]++;
+    }
+   return bfs(numCourses);
 }
 
-bool canFinish(int numCourses, vector<vector<int>> &prerequisites) {
-    edges.resize(numCourses);
-    visited.resize(numCourses);
-    for (const auto &it:prerequisites) {
-        edges[it[0]].push_back(it[1]);
-    }
-    for (int i = 0; i < numCourses; i++) {
-        if (!visited[i])
-            dfs(i);
-    }
-    return !hasCircus;
-}
 
 int main() {
     int numCourses = 2;
     vector<vector<int>> prerequisites = {{1, 0}};
-    cout<<canFinish(numCourses,prerequisites)<<endl;
+    cout << canFinish(numCourses, prerequisites) << endl;
 
 }

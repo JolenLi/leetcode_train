@@ -12,13 +12,13 @@
 
 
 using namespace std;
-
 bool hasAlternatingBits(int n) {
-    while(n>=2){
-        int bit = n&1;
-        n = n>>1;
-        if(!bit^(n&1))
+    int bit = n&1;
+    while(n){
+        n>>=1;
+        if((n&1)==bit)
             return false;
+        bit = n&1;
     }
     return true;
 }

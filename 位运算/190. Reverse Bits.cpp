@@ -20,12 +20,13 @@
 using namespace std;
 
 uint32_t reverseBits(uint32_t n) {
-    uint32_t num = 0;
-    for (int i = 0; i < 32; i++) {
-        num = (num << 1) + (n & 1);
-        n = n >> 1;
+    int SIZE = sizeof(uint32_t) * 8;
+    uint32_t ans = 0;
+    for (int i = 0; i < SIZE; i++) {
+        ans = (ans << 1) + (n & 1);
+        n >>= 1;
     }
-    return num;
+    return ans;
 }
 
 int main() {

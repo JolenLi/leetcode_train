@@ -5,66 +5,85 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-bool hasCircus;
-vector<vector<int>> edges;
-vector<int> visited;
-/// visted=0 未检查过
-/// visted=1 正在检查
-/// visted=2 查过但是恢复了
 
-void dfs(int i) {
-    if (visited[i] == 1 || hasCircus) {
-        hasCircus = true;
-        return;
-    }
-    visited[i] = 1;
-    for (const auto &nextId:edges[i]) {
-        if (visited[nextId] == 1 || hasCircus) {
-            hasCircus = true;
-            return;
-        } else if (visited[nextId] == 0) {
-            dfs(nextId);
+
+//
+//vector<vector<int>> edge;
+//vector<int> visited;
+//vector<int> ans;
+/////// visted=0 未检查过
+/////// visted=1 正在检查
+/////// visted=2 备忘可以学习
+//
+//bool learn(int course) {
+//    if (visited[course] == 1)
+//        return false;
+//    if (visited[course] == 2)
+//        return true;
+//    visited[course] = 1;
+//    for (const int &needLearn:edge[course])
+//        if (!learn(needLearn))
+//            return false;
+//    ans.push_back(course);
+//    visited[course] = 2;
+//    return true;
+//}
+//
+//vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites) {
+//    edge = vector<vector<int>>(numCourses);
+//    visited = vector<int>(numCourses, 0);
+//    for (vector<int> &require:prerequisites)
+//        edge[require[0]].push_back(require[1]);
+//    for (int i = 0; i < numCourses; i++)
+//        if (!learn(i))
+//            return {};
+//    return ans;
+//}
+
+
+
+
+vector<vector<int>> edge;
+vector<int> indeg;
+vector<int> ans;
+
+bool bfs(int numCourses) {
+    queue<int> courses;
+    for (int i = 0; i < numCourses; i++)
+        if (indeg[i] == 0)
+            courses.push(i);
+    while (!courses.empty()) {
+        int course = courses.front();
+        courses.pop();
+        ans.push_back(course);
+        for (const int &next:edge[course]) {
+            indeg[next]--;
+            if (indeg[next] == 0)
+                courses.push(next);
         }
     }
-    visited[i] = 2;
+    return ans.size() == numCourses;
 }
 
-bool canFinish(int numCourses, vector<vector<int>> &prerequisites) {
-    edges.resize(numCourses);
-    visited.resize(numCourses);
-    for (const auto &it:prerequisites) {
-        edges[it[0]].push_back(it[1]);
+vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites) {
+    edge.resize(numCourses);
+    indeg.resize(numCourses, 0);
+    for (vector<int> &require:prerequisites) {
+        edge[require[1]].push_back(require[0]);
+        indeg[require[0]]++;
     }
-    for (int i = 0; i < numCourses; i++) {
-        if (!visited[i])
-            dfs(i);
-    }
-    return !hasCircus;
+    if (bfs(numCourses))
+        return ans;
+    else
+        return {};
 }
 
-vector<int>res;
-void traverse(int i){
-    visited[i] =1;
-    for(const auto& next:edges[i]){
-        if(!visited[next])
-            traverse(next);
-    }
-    res.push_back(i);
-}
-vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-    if(!canFinish(numCourses,prerequisites))return res;
-    visited = vector<int>(numCourses);
-    for(int i =0;i<numCourses;i++){
-        if(!visited[i])
-            traverse(i);
-    }
-    return res;
-}
+
 int main() {
     int numCourses = 2;
     vector<vector<int>> prerequisites = {{1, 0}};
     auto ans = findOrder(numCourses, prerequisites);
-    for(auto i :ans)
+    for (auto i :ans)
         cout << i;
-    cout<< endl;
+    cout << endl;
 }

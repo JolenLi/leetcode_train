@@ -23,7 +23,6 @@ int maxProduct(vector<string> &words) {
         }
     }
 
-
     for (int i = 0; i < words.size(); i++)
         for (int j = i + 1; j < words.size(); j++) {
             if ((exist[i] & exist[j]) == 0) {

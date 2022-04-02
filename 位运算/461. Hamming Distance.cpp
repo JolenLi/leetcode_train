@@ -29,6 +29,7 @@ int hammingDistance(int x, int y) {
     return cnt;
 }
 
+
 int main() {
     cout << hammingDistance(1, 4) << endl;
 }

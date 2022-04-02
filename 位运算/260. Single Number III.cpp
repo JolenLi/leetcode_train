@@ -15,6 +15,7 @@
 
 using namespace std;
 
+
 vector<int> singleNumber(vector<int> &nums) {
     long long diff = 0;
     for (int num:nums)

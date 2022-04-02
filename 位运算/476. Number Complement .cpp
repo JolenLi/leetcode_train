@@ -15,18 +15,15 @@
 using namespace std;
 
 int findComplement(int num) {
-    int cnt = 0, temp = num;
-
-    while (temp) {
-        cnt++;
-        temp = temp >> 1;
+    int ans = 0;
+    int idx = 0;
+    while(num){
+        if((num&1)==0)
+            ans += (1<<idx);
+        idx++;
+        num>>=1;
     }
-    std::bitset<33> x(num);
-    std::cout << x << '\n';
-
-    int max = (1 << cnt) - 1;
-
-    return num ^ max;
+    return ans;
 }
 
 int main() {
