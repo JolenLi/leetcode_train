@@ -190,45 +190,10 @@ vector<int> getTree(TreeNode *root) {
 }
 
 int main() {
-    queue<TreeNode *> que;
-    int val;
-    TreeNode *root = new TreeNode();
-    cin >> root->val;
-    que.push(root);
-    for (int i = 0; i < 7; i++) {
-
-//        while
-        (cin >> val);
-        {
-            TreeNode *now = que.front();
-            TreeNode *left = nullptr;
-            TreeNode *right = nullptr;
-            que.pop();
-            if (val != 0) {
-                left = new TreeNode(val);
-                now->left = left;
-            }
-            que.push(left);
-            cin >> val;
-            if (val != 0) {
-                right = new TreeNode(val);
-                now->right = right;
-            }
-            que.push(right);
-        }
-    }
-
-
-
-
-    printTree(root);
-    getOrder(root);
-    if (getHight(ans) == 0)
-        cout << -1 << endl;
-    else{
-        for (auto i:getTree(ans))
-            cout << i << " ";
-        cout << endl;
+    int i=-2;
+    for(int j =0;j<32;j++){
+        cout<<(i&1)<<endl;
+        i = i>>1;
     }
 
 
