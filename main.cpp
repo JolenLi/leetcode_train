@@ -17,184 +17,90 @@
 #include<stack>
 #include<set>
 #include<map>
-
+#include <unordered_set>
 
 using namespace std;
 
-//
-//
-//int m,n;
-//pair<int,int> start;
-//pair<int,int> endPos;
-//map<pair<int,int>,bool> pool;
-//queue<pair<int,int>> que;
-//
-//bool isValid(pair<int,int> pos){
-//    if(pos.first<0||pos.first>=m)
-//        return false;
-//    if(pos.second<0||pos.second>=n)
-//        return false;
-//    if(pool[pos])
-//        return false;
-//    return true;
-//}
-//
-//void pushPair(pair<int,int> pos){
-//    pair<int,int> insertPos = pos;
-//    insertPos.first++;
-//    if(isValid(insertPos))
-//        que.push(insertPos);
-//    insertPos = pos;
-//    insertPos.first--;
-//    if(isValid(insertPos))
-//        que.push(insertPos);
-//    insertPos = pos;
-//    insertPos.second++;
-//    if(isValid(insertPos))
-//        que.push(insertPos);
-//    insertPos = pos;
-//    insertPos.second--;
-//    if(isValid(insertPos))
-//        que.push(insertPos);
-//}
-//bool bfs(){
-//    que.push(start);
-//    int paths=-1,count=0;
-//    while(!que.empty()){
-//        int times = que.size();
-//
-//        for(int i=0;i<times;i++){
-//            pair<int,int> now = que.front();
-//            que.pop();
-//            if(now==endPos)
-//                count++;
-//            else {
-//                pushPair(now);
-//            }
-//        }
-//        paths++;
-//        if(count){
-//            cout<<count<<" "<<paths<<endl;
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-//
-//
-//
-//
-//
-//int main() {
-//    int count;
-//    cin>>m>>n;
-//
-//    cin>>start.first>>start.second;
-//    cin>>endPos.first>>endPos.second;
-//    cin>>count;
-//
-//    while(count--){
-//        pair<int,int> tmp;
-//        cin>>tmp.first>>tmp.second;
-//        pool[tmp]=1;
-//    }
-//    bfs();
-//}
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-//vector<TreeNode *> ans;
-TreeNode *ans;
-unordered_map<string, int> vis;
+vector<pair<unsigned long long, unsigned long long>> curNums;
+set<pair<unsigned long long, unsigned long long>> visited;
+map<pair<unsigned long long, unsigned long long>, int> surTime;
 
 
-int getHight(TreeNode *root) {
-    if (!root) return 0;
-    int l = getHight(root->left);
-    int r = getHight(root->right);
-    return max(l, r) + 1;
+int check(pair<unsigned long long, unsigned long long> a, pair<unsigned long long, unsigned long long> target) {
+    if (a == target)
+        return 1;
+
+    if (a.first >= target.first || a.second >= target.second)
+        return -1;
+    if (a.first * 2 > target.first && a.second * 2 > target.second &&
+        (target.first - a.first) != (target.second - a.second))
+        return -1;
+    else return 0;
 }
 
-string getOrder(TreeNode *root) {
-    if (root == nullptr)
-        return "#";
+unsigned long long sss = 999;
 
-    string leftStr = getOrder(root->left);
-    string rightStr = getOrder(root->right);
-    string rootStr = leftStr + "," + rightStr + "," + (to_string(root->val));
+long long GetMinCalculateCount(long long sourceX, long long sourceY, long long targetX, long long targetY) {
+    curNums.push_back({sourceX, sourceY});
+    pair<unsigned long long, unsigned long long> target = {targetX, targetY};
+    vector<pair<unsigned long long, unsigned long long>> backNums;
+    backNums.push_back(target);
+    long long count = 0;
+    long long counts = 1;
+    long long j = 0;
+    long long x = 0;
+    while (j < curNums.size()) {
+        long long i = curNums.size();
+        cout<<i<<endl;
+        long long y = backNums.size();
+        for (; x < y; x++) {
+            pair<unsigned long long, unsigned long long> temp ={ backNums[x].first-1, backNums[x].second-1};
 
-    if (vis[rootStr] == 1) {
-        if (getHight(root) > getHight(ans))
-            ans = root;
-    }
-//        ans.push_back(root);
-    vis[rootStr]++;
-    return rootStr;
-}
+            if(surTime[temp] ==0){
+                surTime[temp]= counts;
+                backNums.push_back(temp);
+            }
 
-TreeNode *findDuplicateSubtrees(TreeNode *root) {
-    getOrder(root);
-    return ans;
-}
+            if(backNums[x].first%2==0&&backNums[x].second%2==0){
+                temp ={ backNums[x].first/2, backNums[x].second/2};
+                if(surTime[temp] ==0){
+                    surTime[temp]= counts;
+                    backNums.push_back(temp);
+                }
 
-void printTree(TreeNode *root) {
-    queue<TreeNode *> list;
-    list.push(root);
-    while (!list.empty()) {
-        int numLevel = list.size();
-        for (int i = 0; i < numLevel; i++) {
-            auto head = list.front();
-            list.pop();
-            if (head == nullptr)
-                continue;
-            cout << head->val << " ";
-            list.push(head->left);
-            list.push(head->right);
-        }
-        cout << endl;
-    }
-}
-
-vector<int> getTree(TreeNode *root) {
-    queue<TreeNode *> que;
-    que.push(root);
-    vector<int> res;
-    int n = getHight(root);
-    for (int i = 0; i < n; i++) {
-        int times = que.size();
-        while (times--) {
-            TreeNode *now = que.front();
-            que.pop();
-            if (now != nullptr) {
-                res.push_back(now->val);
-                que.push(now->left);
-                que.push(now->right);
-            } else {
-                res.push_back(0);
-                que.push(nullptr);
-                que.push(nullptr);
             }
         }
+        counts++;
+//        cout<<i<<endl;
+        for (; j < i; j++) {
+            int ans = check(curNums[j], target);
+
+            if(surTime[curNums[j]]>0)
+                return count+surTime[curNums[j]];
+            if (ans == 1)
+                return count;
+            else if (ans == 0) {
+                pair<unsigned long long, unsigned long long> temp = {curNums[j].first + 1, curNums[j].second + 1};
+                if (!visited.count(temp)) {
+                    visited.insert(temp);
+                    curNums.push_back(temp);
+                }
+
+                temp = {curNums[j].first * 2, curNums[j].second * 2};
+                if (!visited.count(temp)) {
+                    visited.insert(temp);
+                    curNums.push_back(temp);
+                }
+
+            }
+        }
+        count++;
     }
-    return res;
+    return -1;
 }
 
 int main() {
-    int i=-2;
-    for(int j =0;j<32;j++){
-        cout<<(i&1)<<endl;
-        i = i>>1;
-    }
-
-
+//    cout<<sss<<endl;
+    cout << GetMinCalculateCount(1, 1, 9999999, 9999999) << endl;
 }

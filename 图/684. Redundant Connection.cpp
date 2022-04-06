@@ -14,35 +14,27 @@
 
 using namespace std;
 
-vector<int> parent;
+vector<int> root;
 
-int find(int i) {
-    while (parent[i] != i) {
-        i = parent[i];
-    }
-    return i;
+int find(int child) {
+    while (root[child] == child)
+        child = root[child];
+    return child;
 }
-
-
-
 
 vector<int> findRedundantConnection(vector<vector<int>> &edges) {
     int n = edges.size();
-    parent.resize(n);
+    root.resize(n + 1);
+    for (int i = 0; i <= n; i++)
+        root[i] = i;
 
-    for (int i = 0; i < n; i++)
-        parent[i] = i;
-
-    for (vector<int> &edge:edges) {
-        int headA = find(edge[0]),headB=find(edge[1]);
-        if(headA==headB)
-            return edge;
-        else
-            parent[headA] = headB;
+    for (auto &edge:edges) {
+        int nodeA = find(edge[0]), nodeB = find(edge[1]);
+        if (nodeA == nodeB)return edge;
+        root[nodeA] = nodeB;
     }
-    return {-1,-1};
+    return {-1, -1};
 }
-
 
 int main() {
 
