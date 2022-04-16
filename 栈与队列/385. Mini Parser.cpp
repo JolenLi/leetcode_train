@@ -33,6 +33,7 @@
  */
 class Solution {
 
+
 public:
     NestedInteger deserialize(string s) {
         stack<NestedInteger> stk;
